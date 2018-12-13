@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
-        applicationId "com.igameguide.pubg"
+        applicationId "com.statstracker.forfornitegame"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -46,4 +46,11 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     implementation rootProject.ext.dependencies["NumberPickerView"]
 
+    implementation 'com.google.android.gms:play-services:11.0.1'
+    implementation 'com.google.android.gms:play-services-ads:11.0.1'
+    implementation 'com.google.firebase:firebase-ads:11.0.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
+
+apply plugin: 'com.google.gms.google-services'
