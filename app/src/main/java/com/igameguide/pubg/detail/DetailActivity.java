@@ -75,14 +75,18 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private String mRegion;
     private String mPlayerName;
     private String mMode;
+    private String mPlatform;
     private String[] mRegionArray = new String[]{"pc-as", "pc-eu", "pc-jp", "pc-kakao", "pc-krjp", "pc-na", "pc-oc"
             , "pc-ru", "pc-sa", "pc-sea", "pc-tournament"};
     private String[] mRegionNamesArray = new String[]{"Asia", "Europe", "Japan", "Kakao", "Korea", "North America", "Oceania"
             , "Russia", "South and Central America", "South East Asia", "Tournaments"};
     private String[] mModeArray = new String[]{"solo", "squad", "duo"};
     private String[] mModeNameArray = new String[]{"单排", "双排", "多排"};
+    private String[] mPlatformArray = new String[]{"pc", "xbl", "psn"};
+
     private int mSelectRegionIndex = -1;
     private int mSelectModeIndex = -1;
+    private int mSelectPlatformIndex = -1;
     private boolean isRegion = false;
 
 
@@ -114,7 +118,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private void load() {
 //        mRegion = mRegionArray[0];
 //        mPlayerName = "White-Mickey";
-        mPresenter.loadPlayerData(mRegion, mPlayerName, null);
+        mPlayerName = "xl_0";
+        mPresenter.loadFortnitetrackerPlayerInfo(mPlayerName, mPlatform);
     }
 
     @Override
@@ -233,7 +238,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             case R.id.rl_region:
                 isRegion = true;
                 llPick.setVisibility(View.VISIBLE);
-                picker.refreshByNewDisplayedValues(mRegionNamesArray);
+                picker.refreshByNewDisplayedValues(mPlatformArray);
                 break;
             case R.id.rl_mode:
                 isRegion = false;
@@ -242,21 +247,23 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 break;
             case R.id.rl_done:
                 llPick.setVisibility(View.INVISIBLE);
-                if (isRegion) {
-                    mSelectRegionIndex = picker.getPickedIndexRelativeToRaw();
-                    if (mSelectRegionIndex >= 0 && mSelectRegionIndex < mRegionArray.length) {
-                        mRegion = mRegionArray[mSelectRegionIndex];
-                    }
+                mSelectPlatformIndex = picker.getPickedIndexRelativeToRaw();
+//                if (isRegion) {
+//                    mSelectRegionIndex = picker.getPickedIndexRelativeToRaw();
+//                    if (mSelectRegionIndex >= 0 && mSelectRegionIndex < mRegionArray.length) {
+//                        mRegion = mRegionArray[mSelectRegionIndex];
+//                    }
+//
+//                } else {
+//                    mSelectModeIndex = picker.getPickedIndexRelativeToRaw();
+//                    if (mSelectModeIndex >= 0 && mSelectModeIndex < mModeArray.length) {
+//                        mMode = mModeArray[mSelectModeIndex];
+//                    }
+//
+//                }
 
-                } else {
-                    mSelectModeIndex = picker.getPickedIndexRelativeToRaw();
-                    if (mSelectModeIndex >= 0 && mSelectModeIndex < mModeArray.length) {
-                        mMode = mModeArray[mSelectModeIndex];
-                    }
-
-                }
-
-                if (mSelectRegionIndex >= 0 && mSelectModeIndex >= 0) {
+                if (mSelectPlatformIndex >= 0 && mSelectPlatformIndex < mPlatformArray.length) {
+                    mPlatform = mPlatformArray[mSelectPlatformIndex];
                     load();
                 }
 

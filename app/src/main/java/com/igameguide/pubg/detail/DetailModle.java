@@ -1,6 +1,7 @@
 package com.igameguide.pubg.detail;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.igameguide.pubg.detail.bean.PlayerInfo;
@@ -15,6 +16,7 @@ import com.lzy.okgo.model.Response;
 public class DetailModle {
     /**
      * 请求玩家的信息
+     *
      * @param view
      * @param playerName
      */
@@ -31,54 +33,55 @@ public class DetailModle {
         if (view != null) {
             view.onLoadStart();
         }
-      OkGo.<String>get(url)
-              .headers("Accept", "application/json")
-              .headers("Content-Type", "application/json")
-              .headers("Authorization", "Bearer " + ConstantValue.Key.URL_KEY)
-              .execute(new StringCallback() {
-                  @Override
-                  public void onSuccess(Response<String> response) {
-                      if (response != null) {
-                          String respStr = response.body();
-                          if (!TextUtils.isEmpty(respStr)) {
-                              PlayerInfo playerInfo = null;
-                              try {
-                                  playerInfo = JSON.parseObject(respStr, PlayerInfo.class);
-                              } catch (Exception e) {
-                                  e.printStackTrace();
-                              }
+        OkGo.<String>get(url)
+                .headers("Accept", "application/json")
+                .headers("Content-Type", "application/json")
+                .headers("Authorization", "Bearer " + ConstantValue.Key.URL_KEY)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (response != null) {
+                            String respStr = response.body();
+                            if (!TextUtils.isEmpty(respStr)) {
+                                PlayerInfo playerInfo = null;
+                                try {
+                                    playerInfo = JSON.parseObject(respStr, PlayerInfo.class);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
-                              if (playerInfo != null && playerInfo.data != null && playerInfo.data.size() > 0) {
-                                  PlayerInfo.Player data = playerInfo.data.get(0);
-                                  getSeasons(view, region,  data.id);
-                                  return;
-                              }
+                                if (playerInfo != null && playerInfo.data != null && playerInfo.data.size() > 0) {
+                                    PlayerInfo.Player data = playerInfo.data.get(0);
+                                    getSeasons(view, region, data.id);
+                                    return;
+                                }
 
-                          }
+                            }
 
-                      }
-                      if (view != null)
-                      view.onLoadFail();
+                        }
+                        if (view != null)
+                            view.onLoadFail();
 
-                  }
+                    }
 
-                  @Override
-                  public void onError(Response<String> response) {
-                      super.onError(response);
-                      if (view != null)
-                      view.onLoadFail();
-                  }
-              });
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        if (view != null)
+                            view.onLoadFail();
+                    }
+                });
     }
 
 
     /**
      * 获取赛季信息
+     *
      * @param view
      */
     public void getSeasons(final DetailContract.View view, final String region, final String playerId) {
         String url = ServerUrls.getSeasonUrl(region);
-        if (TextUtils.isEmpty(url) ) {
+        if (TextUtils.isEmpty(url)) {
             if (view != null) {
                 view.onLoadFail();
             }
@@ -137,7 +140,7 @@ public class DetailModle {
                     public void onError(Response<String> response) {
                         super.onError(response);
                         if (view != null)
-                        view.onLoadFail();
+                            view.onLoadFail();
                     }
                 });
 
@@ -151,7 +154,7 @@ public class DetailModle {
      * @param region
      */
     public void getDetailInfo(final DetailContract.View view, String playerId, String seasonId, final String region) {
-        if (TextUtils.isEmpty(playerId) || TextUtils.isEmpty(seasonId) || TextUtils.isEmpty(region)){
+        if (TextUtils.isEmpty(playerId) || TextUtils.isEmpty(seasonId) || TextUtils.isEmpty(region)) {
             if (view != null) {
                 view.onLoadFail();
             }
@@ -202,6 +205,66 @@ public class DetailModle {
     }
 
 
+    /**
+     * 加载堡垒之夜玩家的对战信息
+     *
+     * @param view
+     * @param playerName
+     * @param platform
+     */
+    public void loadFortnitetrackerPlayerInfo(final DetailContract.View view, String playerName, String platform) {
+        if (TextUtils.isEmpty(platform) || TextUtils.isEmpty(platform)) {
+            return;
+        }
+
+        String url = ServerUrls.getFortnitetrackerUrl(playerName, platform);
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        if (view != null) {
+            view.showLoading();
+        }
+        OkGo.<String>get(url)
+                .headers("TRN-Api-Key", "2bb4ef9d-c8f3-4274-be88-f1db053e0d7d")
+                .headers("Accept", "application/json")
+                .headers("Content-Type", "application/json")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (response != null) {
+                            String resp = response.body();
+                            Log.d("wyl", "返回的数据：" + resp);
+//                            SeasonDetail seasonDetail = SeasonDetail.parse(resp);
+//                            if (seasonDetail != null) {
+//                                if (view != null) {
+//                                    view.onLoadSucess(seasonDetail);
+//                                    return;
+//                                }
+//
+//
+//                            }
+                            view.onLoadSucess(null);
+
+                        }
+
+                        if (view != null) {
+                            view.onLoadFail();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        if (view != null) {
+                            view.onLoadFail();
+                        }
+                    }
+                });
+
+
+    }
 
 
 }

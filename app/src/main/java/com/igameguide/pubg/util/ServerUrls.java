@@ -43,4 +43,19 @@ public class ServerUrls {
         return "https://api.pubg.com/shards/" + region + "/players/" + playerId +"/seasons/" + season;
 
     }
+
+
+    /**
+     * 获取堡垒之夜对战信息的url
+     * @param playerName
+     * @param platform
+     * @return
+     */
+    public static String getFortnitetrackerUrl(String playerName, String platform) {
+        if (TextUtils.isEmpty(platform) || TextUtils.isEmpty(playerName)) {
+            return null;
+        }
+        return "https://api.fortnitetracker.com/v1/profile/" + platform + "/" + playerName;
+
+    }
 }

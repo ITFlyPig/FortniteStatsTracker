@@ -14,6 +14,11 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
+    public void loadFortnitetrackerPlayerInfo(String playerName, String platform) {
+        mModle.loadFortnitetrackerPlayerInfo(mView, playerName, platform);
+    }
+
+    @Override
     public void start() {
 
     }
@@ -24,6 +29,8 @@ public class DetailPresenter implements DetailContract.Presenter {
         mModle = new DetailModle();
 
     }
+
+
 
 
 }
