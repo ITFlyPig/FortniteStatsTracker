@@ -37,20 +37,17 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso-core"]
     implementation project(':network')
     implementation project(':tablayout')
-
     implementation rootProject.ext.dependencies["circleimageview"]
     implementation rootProject.ext.dependencies["fast-json"]
     implementation rootProject.ext.dependencies["av-loadingindicatorview"]
-
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     implementation rootProject.ext.dependencies["NumberPickerView"]
-
     implementation 'com.google.android.gms:play-services:11.0.1'
     implementation 'com.google.android.gms:play-services-ads:11.0.1'
     implementation 'com.google.firebase:firebase-ads:11.0.1'
-
     implementation 'com.android.support:multidex:1.0.3'
+    implementation files('libs/umeng-analytics-v6.1.1.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'
