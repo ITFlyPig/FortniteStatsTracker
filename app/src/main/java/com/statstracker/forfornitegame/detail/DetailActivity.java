@@ -3,7 +3,6 @@ package com.statstracker.forfornitegame.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.statstracker.forfornitegame.R;
 import com.statstracker.forfornitegame.detail.bean.Paiwei;
-import com.statstracker.forfornitegame.detail.bean.SeasonDetail;
 import com.statstracker.forfornitegame.util.ConstantValue;
 import com.statstracker.forfornitegame.util.ToastUtil;
 import com.statstracker.forfornitegame.util.defaulthelper.CommonActivityViewHelper;
@@ -24,52 +22,50 @@ import butterknife.ButterKnife;
 import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class DetailActivity extends AppCompatActivity implements DetailContract.View, View.OnClickListener {
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_region_middle_title)
-    TextView tvRegionMiddleTitle;
-    @BindView(R.id.iv_region_right)
-    ImageView ivRegionRight;
-    @BindView(R.id.tv_mode_middle_title)
-    TextView tvModeMiddleTitle;
-    @BindView(R.id.iv_mode_right)
-    ImageView ivModeRight;
-    @BindView(R.id.wins)
-    TextView wins;
-    @BindView(R.id.wins_lv)
-    TextView winsLv;
-    @BindView(R.id.top10)
-    TextView top10;
-    @BindView(R.id.maxkill)
-    TextView maxkill;
-    @BindView(R.id.longestKill)
-    TextView longestKill;
-    @BindView(R.id.headshotKills)
-    TextView headshotKills;
-    @BindView(R.id.timeSurvivedAvg)
-    TextView timeSurvivedAvg;
-    @BindView(R.id.kd)
-    TextView kd;
-    @BindView(R.id.rl_default)
-    RelativeLayout rlDefault;
-    @BindView(R.id.rl_region)
-    RelativeLayout rlRegion;
-    @BindView(R.id.rl_mode)
-    RelativeLayout rlMode;
-    @BindView(R.id.picker)
-    NumberPickerView picker;
-    @BindView(R.id.rl_done)
-    RelativeLayout rlDone;
-    @BindView(R.id.ll_pick)
-    LinearLayout llPick;
+
+
     @BindView(R.id.iv_left_icon)
     ImageView ivLeftIcon;
     @BindView(R.id.titletext)
     TextView titletext;
     @BindView(R.id.titlebar)
     RelativeLayout titlebar;
-
-
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_region_middle_title)
+    TextView tvRegionMiddleTitle;
+    @BindView(R.id.iv_region_right)
+    ImageView ivRegionRight;
+    @BindView(R.id.rl_region)
+    RelativeLayout rlRegion;
+    @BindView(R.id.tv_mode_middle_title)
+    TextView tvModeMiddleTitle;
+    @BindView(R.id.iv_mode_right)
+    ImageView ivModeRight;
+    @BindView(R.id.rl_mode)
+    RelativeLayout rlMode;
+    @BindView(R.id.score)
+    TextView score;
+    @BindView(R.id.wins)
+    TextView wins;
+    @BindView(R.id.win_lv)
+    TextView winLv;
+    @BindView(R.id.top10)
+    TextView top10;
+    @BindView(R.id.kills)
+    TextView kills;
+    @BindView(R.id.kd)
+    TextView kd;
+    @BindView(R.id.matchesPlayed)
+    TextView matchesPlayed;
+    @BindView(R.id.rl_done)
+    RelativeLayout rlDone;
+    @BindView(R.id.picker)
+    NumberPickerView picker;
+    @BindView(R.id.ll_pick)
+    LinearLayout llPick;
+    @BindView(R.id.rl_default)
+    RelativeLayout rlDefault;
     private DetailContract.Presenter mPresenter;
     private CommonActivityViewHelper mCommonHelper;
     private String mRegion;
@@ -118,7 +114,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private void load() {
 //        mRegion = mRegionArray[0];
 //        mPlayerName = "White-Mickey";
-        mPlayerName = "xl_0";
+//        mPlayerName = "xl_0";
         mPresenter.loadFortnitetrackerPlayerInfo(mPlayerName, mPlatform);
     }
 
@@ -135,77 +131,32 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     }
 
     @Override
-    public void onLoadSucess(SeasonDetail seasonDetail) {
+    public void onLoadSucess(Paiwei paiwei) {
         dismissLoading();
         ToastUtil.showToas("网络请求成功");
-        if (seasonDetail != null) {
-            if (TextUtils.equals(mModeArray[0], mMode)) {
-                updateUi(seasonDetail.solo);
-            } else if (TextUtils.equals(mModeArray[1], mMode)) {
-                updateUi(seasonDetail.squad);
-            } else if (TextUtils.equals(mModeArray[2], mMode)) {
-                updateUi(seasonDetail.duo);
-            }
+        updateUi(paiwei);
 
-        }
+
     }
 
 
     private void updateUi(Paiwei paiwei) {
-        if (paiwei == null) {//没有查询结果的情况
-            wins.setText("0");
-            winsLv.setText("0%");
-
-            top10.setText("0");
-            maxkill.setText("0");
-            longestKill.setText("0 minute");
-            headshotKills.setText("0%");
-            timeSurvivedAvg.setText("0 meter");
-            kd.setText("0");
+        if (paiwei != null) {
+            score.setText(paiwei.score);
+            wins.setText(paiwei.winsStr);
+            winLv.setText(paiwei.winLv);
+            top10.setText(paiwei.top10sStr);
+            kills.setText(paiwei.killsStr);
+            kd.setText(paiwei.kd);
+            matchesPlayed.setText(paiwei.matchesPlayed);
         } else {
-            wins.setText(String.valueOf((int) paiwei.wins));
-
-            float winsl = 0;
-            DecimalFormat df = new DecimalFormat("#.00");
-            if (paiwei.roundsPlayed != 0) {
-                winsl = paiwei.wins / paiwei.roundsPlayed;
-            }
-            if (winsl > 0 && winsl < 1) {
-                winsl *= 100;
-            }
-
-            winsLv.setText(df.format(winsl) + "%");
-
-            top10.setText(String.valueOf(paiwei.top10s));
-            maxkill.setText(String.valueOf(paiwei.maxKillStreaks));
-            longestKill.setText(df.format(paiwei.longestKill) + " minute");
-
-            float killsl = 0;
-            if (paiwei.kills != 0) {
-                killsl = paiwei.headshotKills / paiwei.kills;
-            }
-
-            if (killsl > 0 && killsl < 1) {
-                killsl *= 100;
-            }
-
-            headshotKills.setText(df.format(killsl) + "%");
-
-
-            float survivedAvg = 0;
-            if (paiwei.roundsPlayed != 0) {
-                survivedAvg = paiwei.timeSurvived / (60 * paiwei.roundsPlayed);
-
-            }
-            timeSurvivedAvg.setText(df.format(survivedAvg) + " meter");
-
-            String kdStr = "";
-            if (paiwei.roundsPlayed == 0) {
-                kdStr = "Perfect";
-            } else {
-                kdStr = String.valueOf(paiwei.kills / (paiwei.roundsPlayed - paiwei.wins));
-            }
-            kd.setText(kdStr);
+            score.setText("0");
+            wins.setText("0");
+            winLv.setText("0%");
+            top10.setText("0");
+            kills.setText("0");
+            kd.setText("0");
+            matchesPlayed.setText("0");
         }
 
 
@@ -264,6 +215,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
                 if (mSelectPlatformIndex >= 0 && mSelectPlatformIndex < mPlatformArray.length) {
                     mPlatform = mPlatformArray[mSelectPlatformIndex];
+                    tvRegionMiddleTitle.setText(mPlatform);
                     load();
                 }
 

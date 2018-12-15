@@ -82,7 +82,7 @@ public class StandingsFragment extends Fragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("120817A018AD6F963BB6ACCE605CCA31")
+//                .addTestDevice("120817A018AD6F963BB6ACCE605CCA31")
                 .build();
 
         mAdView.loadAd(adRequest);
@@ -100,7 +100,7 @@ public class StandingsFragment extends Fragment implements View.OnClickListener 
             }
         });
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("120817A018AD6F963BB6ACCE605CCA31")
+//                .addTestDevice("120817A018AD6F963BB6ACCE605CCA31")
                 .build();
         mInterstitialAd.loadAd(adRequest);
 

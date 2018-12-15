@@ -4,6 +4,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.statstracker.forfornitegame.detail.bean.Paiwei;
 import com.statstracker.forfornitegame.detail.bean.PlayerInfo;
 import com.statstracker.forfornitegame.detail.bean.SeasonDetail;
 import com.statstracker.forfornitegame.detail.bean.SeasonsBean;
@@ -179,7 +181,7 @@ public class DetailModle {
                             SeasonDetail seasonDetail = SeasonDetail.parse(resp);
                             if (seasonDetail != null) {
                                 if (view != null) {
-                                    view.onLoadSucess(seasonDetail);
+//                                    view.onLoadSucess(seasonDetail);
                                     return;
                                 }
 
@@ -241,10 +243,25 @@ public class DetailModle {
 //                                    view.onLoadSucess(seasonDetail);
 //                                    return;
 //                                }
-//
-//
 //                            }
-                            view.onLoadSucess(null);
+                            if (TextUtils.isEmpty(resp)) {
+                                if (view != null) {
+                                    view.onLoadFail();
+                                }
+                                return;
+                            }
+
+                            JSONObject jsonObject = JSONObject.parseObject(resp);
+                            Paiwei paiwei = Paiwei.parseForfornitegame(jsonObject);
+                            if (paiwei == null) {
+                                if (view != null) {
+                                    view.onLoadFail();
+                                }
+                                return;
+                            }
+
+                            view.onLoadSucess(paiwei);
+                            return;
 
                         }
 

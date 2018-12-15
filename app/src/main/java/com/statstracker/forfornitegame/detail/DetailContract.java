@@ -2,6 +2,7 @@ package com.statstracker.forfornitegame.detail;
 
 import com.statstracker.forfornitegame.base.BasePresenter;
 import com.statstracker.forfornitegame.base.BaseView;
+import com.statstracker.forfornitegame.detail.bean.Paiwei;
 import com.statstracker.forfornitegame.detail.bean.SeasonDetail;
 
 public class DetailContract {
@@ -12,7 +13,7 @@ public class DetailContract {
 
         void dismissLoading();
 
-        void onLoadSucess(SeasonDetail seasonDetail);
+        void onLoadSucess(Paiwei paiwei);
 
         void onLoadFail();
 
