@@ -28,13 +28,7 @@
         android:layout_marginTop="20dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"/>
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/ADUnitID_Banner">
-    </com.google.android.gms.ads.AdView>
+
 
     <TextView
         android:id="@+id/tv_query"
@@ -54,6 +48,13 @@
 
 
 
-
+    <com.google.android.gms.ads.AdView
+        android:layout_marginTop="5dp"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ADUnitID_Banner">
+    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>
