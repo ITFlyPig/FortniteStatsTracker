@@ -18,11 +18,14 @@ public class PubgApplication extends MultiDexApplication {
         mInstance = this;
         initNetwork();
 
-
+        //友盟
+        MobclickAgent.setDebugMode(true);
         MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, getString(R.string.umeng_key), "release", MobclickAgent.EScenarioType.E_UM_NORMAL, true));
+
+        //谷歌广告
         MobileAds.initialize(this);
 
-        MobclickAgent.setDebugMode(true);
+
 
     }
 
