@@ -23,6 +23,7 @@ public class PubgApplication extends MultiDexApplication {
         MobileAds.initialize(this);
 
         MobclickAgent.setDebugMode(true);
+
     }
 
 

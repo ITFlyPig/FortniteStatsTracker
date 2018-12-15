@@ -5,7 +5,7 @@
     <string name="region">Server</string>
     <string name="mode">Mode</string>
     <string name="done">Done</string>
-    <string name="data">战绩</string>
+    <string name="data">Your status</string>
     <string name="server">Server</string>
     <string name="wins">Wins</string>
     <string name="win_lv">Win%</string>
@@ -17,7 +17,7 @@
     <string name="duo">Duo</string>
     <string name="squad">Squad</string>
     <string name="avg_time">Average Time Survived</string>
-    <string name="umeng_key">5c0f8a44f1f556656700011f</string>
+    <string name="umeng_key">592655881061d22f9a000e57</string>
     <string name="ADUnitID_Banner">ca-app-pub-9224978836240566/6429671665</string>
     <string name="ADUnitID_Screen">ca-app-pub-9224978836240566/2270934800</string>
 </resources>
