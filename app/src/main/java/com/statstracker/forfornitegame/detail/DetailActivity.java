@@ -15,8 +15,6 @@ import com.statstracker.forfornitegame.util.ConstantValue;
 import com.statstracker.forfornitegame.util.ToastUtil;
 import com.statstracker.forfornitegame.util.defaulthelper.CommonActivityViewHelper;
 
-import java.text.DecimalFormat;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.carbswang.android.numberpickerview.library.NumberPickerView;
@@ -66,6 +64,16 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     LinearLayout llPick;
     @BindView(R.id.rl_default)
     RelativeLayout rlDefault;
+    @BindView(R.id.Top3s)
+    TextView Top3s;
+    @BindView(R.id.Top5s)
+    TextView Top5s;
+    @BindView(R.id.Top6s)
+    TextView Top6s;
+    @BindView(R.id.Top12s)
+    TextView Top12s;
+    @BindView(R.id.Top25s)
+    TextView Top25s;
     private DetailContract.Presenter mPresenter;
     private CommonActivityViewHelper mCommonHelper;
     private String mRegion;
@@ -146,6 +154,11 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             wins.setText(paiwei.winsStr);
             winLv.setText(paiwei.winLv);
             top10.setText(paiwei.top10sStr);
+            Top3s.setText(paiwei.top3s);
+            Top5s.setText(paiwei.top5s);
+            Top6s.setText(paiwei.top6s);
+            Top12s.setText(paiwei.top12s);
+            Top25s.setText(paiwei.top25s);
             kills.setText(paiwei.killsStr);
             kd.setText(paiwei.kd);
             matchesPlayed.setText(paiwei.matchesPlayed);
@@ -154,6 +167,11 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             wins.setText("0");
             winLv.setText("0%");
             top10.setText("0");
+            Top3s.setText("0");
+            Top5s.setText("0");
+            Top6s.setText("0");
+            Top12s.setText("0");
+            Top25s.setText("0");
             kills.setText("0");
             kd.setText("0");
             matchesPlayed.setText("0");

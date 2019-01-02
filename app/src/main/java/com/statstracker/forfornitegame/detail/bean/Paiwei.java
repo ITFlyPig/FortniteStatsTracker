@@ -51,6 +51,11 @@ public class Paiwei {
     public String winsStr = "0";
     public String top10sStr = "0";
     public String killsStr = "0";
+    public String top3s = "0";
+    public String top5s = "0";
+    public String top6s = "0";
+    public String top12s = "0";
+    public String top25s = "0";
 
 
     public static Paiwei parseForfornitegame(JSONObject jsonObject) {
@@ -81,6 +86,16 @@ public class Paiwei {
                paiwei.kd = value;
            } else if (key.equals("Matches Played")) {
                paiwei.matchesPlayed = value;
+           } else if (key.equals("Top 3s")) {
+               paiwei.top3s = value;
+           }  else if (key.equals("Top 5s")) {
+               paiwei.top5s = value;
+           } else if (key.equals("Top 6s")) {
+               paiwei.top6s = value;
+           } else if (key.equals("Top 12s")) {
+               paiwei.top12s = value;
+           } else if (key.equals("Top 25s")) {
+               paiwei.top25s = value;
            }
 
         }
